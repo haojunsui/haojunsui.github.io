@@ -143,13 +143,13 @@ author_blurb_image: "/img/author.png"
 
 social:
   - title: "facebook"
-    url: "https://facebook.com/"
+    url: "https://www.facebook.com/mr.suihaojun"
   - title: "twitter"
-    url: "https://twitter.com/"
+    url: "https://twitter.com/Charles_Sui"
   - title: "github"
     url: "https://github.com/haojunsui"
   - title: "bitcoin"
-    url: "https://blockchain.info/address/1LHuKC9Em3KA5yoZaf7nngnNdf9K7s2gSi"
+    url: "https://blockchain.info/address/1N1vsqdVYPiPAqwyDhEkzDzAhvVRdiZ44F"
   - title: "rss"
     url: "/feed.xml"
 
