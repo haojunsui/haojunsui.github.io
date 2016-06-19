@@ -113,8 +113,8 @@ events:
     date: "August 2015 - December 2015"
     description: "Beep-Beep Traffic System Builder and Simulator"
   - image: "/img/timeline/duckduckgo.png"
-    date: "October 2015"
-    description: "<a href=\"https://duckduckgo.com/?q=prime+numbers+between+23+and+56&ia=answer\" target=\"_blank\">DuckDuckGo Instant Answer - Prime Numbers</a><iframe src=\"https://ghbtns.com/github-btn.html?user=duckduckgo&repo=zeroclickinfo-goodies&type=star&count=true&size=large\" frameborder=\"0\" scrolling=\"0\" width=\"160px\" height=\"30px\"></iframe><iframe src=\"https://ghbtns.com/github-btn.html?user=duckduckgo&repo=zeroclickinfo-goodies&type=fork&count=true&size=large\" frameborder=\"0\" scrolling=\"0\" width=\"160px\" height=\"30px\"></iframe>"
+    date: "October 2015 - Today"
+    description: "DuckDuckHack Contributors @ <a href=\"https://duckduckgo.com/\" target=\"_blank\">DuckDuckGo</a>, developed <a href=\"https://duckduckgo.com/?q=prime+numbers+between+23+and+56&ia=answer\" target=\"_blank\">DuckDuckGo Instant Answer - Prime Numbers</a> to display prime numbers between user-given ranges."
   - image: "/img/timeline/pennstate.png"
     date: "September 2013 - May 2017"
     description: "Bachelor studies @ <a href=\"http://eecs.psu.edu\" target=\"_blank\">Department of Electrical Engineering and Computer Science</a> on Computer Science<br>Bachelor studies @ <a href=\"http://www.math.psu.edu\" target=\"_blank\">Department of Mathematics</a> on Mathematics, System Analysis<br>Bachelor studies @ <a href=\"http://stat.psu.edu\" target=\"_blank\">Department of Statistics</a> on Statistics, Applied"
@@ -145,10 +145,6 @@ author_blurb_image: "/img/author.png"
 ##################
 
 social:
-  - title: "facebook"
-    url: "https://www.facebook.com/mr.suihaojun"
-  - title: "twitter"
-    url: "https://twitter.com/Charles_Sui"
   - title: "github"
     url: "https://github.com/haojunsui"
   - title: "bitcoin"
