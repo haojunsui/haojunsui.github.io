@@ -115,13 +115,13 @@ events:
   - image: "/img/timeline/duckduckgo.png"
     date: "October 2015"
     description: "DuckDuckGo Instant Answer - Prime Numbers"
-  - image: "/img/timeline/baracktocat.jpg"
-    date: "September 2012"
-    description: "Started coding"
+  - image: "/img/timeline/pennstate.jpg"
+    date: "September 2013 - May 2017"
+    description: "Bachelor studies @ <a href=\"http://eecs.psu.edu\" target=\"_blank\">Department of Electrical Engineering and Computer Science</a> on Computer Science<br>Bachelor studies @ <a href=\"http://www.math.psu.edu\" target=\"_blank\">Department of Mathematics</a> on Mathematics, System Analysis<br>Bachelor studies @ <a href=\"http://stat.psu.edu\" target=\"_blank\">Department of Statistics</a> on Statistics, Applied"
 
 # First image of the Timeline
 
-timeline-img: "/img/timeline/default.png"
+timeline-img: "/img/author.png"
 
 ###########
 # Contact #
