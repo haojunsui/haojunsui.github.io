@@ -1,5 +1,5 @@
 
-<!-- Projects Start -->
+<!-- Timeline Start -->
 
 <section id="{{ page.section-type }}" class="container content-section text-center">
   <div class="row">
@@ -7,34 +7,34 @@
 
       {{ page.content | markdownify }}
 
-      <ul class="projects">
+      <ul class="timeline">
 
         {% for event in site.events %}
           {% assign loopindex = forloop.index | modulo: 2 %}
           {% capture class %}
           {% if loopindex == 0 %}
-            projects-inverted
+            timeline-inverted
           {% endif %}
           {% endcapture %}
 
           <li class="{{ class }}">
-            <div class="projects-image">
+            <div class="timeline-image">
               <img class="img-circle img-responsive" src="{{site.baseurl}}{{ event.image }}" alt="">
             </div>
-            <div class="projects-panel">
-              <div class="projects-heading">
+            <div class="timeline-panel">
+              <div class="timeline-heading">
                 <h4>{{ event.date }}</h4>
               </div>
-              <div class="projects-body">
+              <div class="timeline-body">
                 {{ event.description | markdownify }}
               </div>
             </div>
           </li>
         {% endfor %}
 
-        <li class="projects-inverted">
-          <div class="projects-image">
-            <img class="img-circle img-responsive" src="{{site.baseurl}}{{ site.projects-img }}" alt="">
+        <li class="timeline-inverted">
+          <div class="timeline-image">
+            <img class="img-circle img-responsive" src="{{site.baseurl}}{{ site.timeline-img }}" alt="">
           </div>
         </li>
       </ul>
@@ -42,4 +42,4 @@
   </div>
 </section>
 
-<!-- Projects End -->
+<!-- Timeline End -->

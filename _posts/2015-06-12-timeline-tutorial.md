@@ -1,14 +1,14 @@
 ---
 layout: post
 section-type: post
-title: Adding a life event in the Projects
+title: Adding a life event in the timeline
 category: tech
 tags: [ 'tutorial' ]
 ---
 One of the coolest features of { Personal } is that enables you to tell your life's story in
-the form of a projects of photos, dates and text descriptions.
+the form of a timeline of photos, dates and text descriptions.
 
-The Projects is controlled by the following variables:
+The timeline is controlled by the following variables:
 
 <pre><code data-trim class="yaml">
 events:
