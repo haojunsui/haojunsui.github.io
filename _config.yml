@@ -114,7 +114,7 @@ events:
     description: "Saving the neighborhood!"
   - image: "/img/projects/baracktocat.jpg"
     date: "September 2012"
-    description: "<a href="index.html"> Started coding </a>"
+    description: "<a href="http://www.baidu.com"> Started coding </a>"
 
 # First image of the Projects
 
