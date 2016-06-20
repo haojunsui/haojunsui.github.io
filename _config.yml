@@ -70,7 +70,7 @@ duoshuo_share: true                     # set to false if you want to use Commen
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "人生就像打橄榄球一样，不能犯规，也不要闪避球，而应向底线冲过去。"
-sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/avatar-haojun.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
