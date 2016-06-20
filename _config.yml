@@ -13,7 +13,7 @@ baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
 # SNS settings
 RSS: true
 weibo_username:     2426835440
-zhihu_username:     sui-hao-jun
+#zhihu_username:     sui-hao-jun
 github_username:    haojunsui
 twitter_username:  Charles_sui
 #facebook_username:  huxpro
@@ -83,19 +83,19 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 # Friends
 friends: [
     {
-        title: "Hux Blog",
-        href: "http://huangxuan.me"
+        title: "Penn State University",
+        href: "http://www.psu.edu"
     },{
-        title: "Foo",
-        href: "#"
+        title: "The Penn State Institute for CyberScience",
+        href: "http://ics.psu.edu"
     },{
-        title: "Bar",
-        href: "#"
+        title: "SSTL",
+        href: "http://www.sstl.org.cn"
     },{
-        title: "Example Friends",
-        href: "#"
+        title: "DuckDuckHack",
+        href: "https://github.com/orgs/duckduckgo/teams/duckduckhack-contributors"
     },{
-        title: "It helps SEO",
-        href: "#"
+        title: "Stateware",
+        href: "http://www.stateware.org"
     }
 ]
