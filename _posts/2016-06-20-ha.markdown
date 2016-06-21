@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "康威生命游戏 Game of Life 及其 Numpy 实现"
+title:      "Num"
 subtitle:   "Conway Game of Life using Numpy"
 date:       2016-06-22 03:02:00
 author:     "Haojun"
