@@ -271,7 +271,8 @@ $ ./sbin/stop-dfs.sh
 
 ## 参考资料
 ---
-- http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
-- http://www.cnblogs.com/xia520pi/archive/2012/05/16/2503949.html
-- http://www.micmiu.com/bigdata/hadoop/hadoop-2x-ubuntu-build/
-- http://www.powerxing.com/install-hadoop/
+- <a href="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html">http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html</a>
+- <a href="http://www.cnblogs.com/xia520pi/archive/2012/05/16/2503949.html">http://www.cnblogs.com/xia520pi/archive/2012/05/16/2503949.html</a>
+- <a href="http://www.micmiu.com/bigdata/hadoop/hadoop-2x-ubuntu-build/">http://www.micmiu.com/bigdata/hadoop/hadoop-2x-ubuntu-build/</a>
+- <a href="http://www.powerxing.com/install-hadoop/">http://www.powerxing.com/install-hadoop/</a>
+- Header image by Database Trends and Applications (<a href="http://www.dbta.com/BigDataQuarterly/Articles/Reflections-on-10-Years-of-Hadoop-and-Big-Data-109236.aspx">http://www.dbta.com/BigDataQuarterly/Articles/Reflections-on-10-Years-of-Hadoop-and-Big-Data-109236.aspx</a>)
