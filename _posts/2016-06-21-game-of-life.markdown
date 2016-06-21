@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "康威生命游戏（Game of Life）及其 Numpy 实现"
-subtitle:   "Conway\'s Game of Life using Numpy"
+subtitle:   "Conway Game of Life using Numpy"
 date:       2016-06-21 17:02:00
 author:     "Haojun"
 header-img: "img/in-post/game-of-life/header.jpg"
@@ -235,6 +235,6 @@ def iterate(Z):
 
 ![](/img/in-post/game-of-life/conway.png)
 
-很简单，不是么？:smile:
+很简单，不是么？
 
 你可以从<a href="/attach/game-of-life-numpy.py">这里（game-of-life-numpy.py）</a>下载完整的生命游戏代码。
