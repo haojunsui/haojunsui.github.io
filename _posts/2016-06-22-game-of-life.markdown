@@ -53,20 +53,57 @@ Numpy 不仅可以用于科学计算，也可以作为高效的通用数据的�
 ## 特殊的生命细胞
 ---
 
-||静止细胞|||
-|:-:|:-:|:-:|:-:|
-|Block|Beehive|Loaf|Boat|
-|![](/img/in-post/game-of-life/block.png)|![](/img/in-post/game-of-life/beehive.png)|![](/img/in-post/game-of-life/loaf.png)|![](/img/in-post/game-of-life/boat.png)|
+<table>
+	<tr>
+		<td colspan="4" style="text-align:center">静止细胞</td>
+	</tr>
+	<tr>
+		<td style="text-align:center">Block</td>
+		<td style="text-align:center">Beehive</td>
+		<td style="text-align:center">Loaf</td>
+		<td style="text-align:center">Boat</td>
+	</tr>
+	<tr>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/block.png" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/beehive.png" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/loaf.png" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/boat.png" alt=""></td>
+	</tr>
+</table>
 
-|||震荡细胞|||
-|:-:|:-:|:-:|:-:|:-:|
-|Blinker（2周期）|Toad（2周期）|Beacon（2周期）|Pulsar（3周期）|Pentadecathlon（15周期）|
-|![](/img/in-post/game-of-life/blinker.gif)|![](/img/in-post/game-of-life/toad.gif)|![](/img/in-post/game-of-life/beacon.gif)|![](/img/in-post/game-of-life/pulsar.gif)|![](/img/in-post/game-of-life/pentadecathlon.gif)|
+<table>
+	<tr>
+		<td colspan="5" style="text-align:center">周期细胞</td>
+	</tr>
+	<tr>
+		<td style="text-align:center">Blinker（2周期）</td>
+		<td style="text-align:center">Toad（2周期）</td>
+		<td style="text-align:center">Beacon（2周期）</td>
+		<td style="text-align:center">Pulsar（3周期）</td>
+		<td style="text-align:center">Pentadecathlon（15周期）</td>
+	</tr>
+	<tr>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/blinker.gif" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/toad.gif" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/beacon.gif" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/pulsar.gif" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/pentadecathlon.gif" alt=""></td>
+	</tr>
+</table>
 
-|飞船细胞||
-|:-:|:-:|
-|Glider|Lightweight spaceship (LWSS)|
-|![](/img/in-post/game-of-life/glider.gif)|![](/img/in-post/game-of-life/lightweight_spaceship.gif)|
+<table>
+	<tr>
+		<td colspan="2" style="text-align:center">飞船细胞</td>
+	</tr>
+	<tr>
+		<td style="text-align:center">Glider</td>
+		<td style="text-align:center">Lightweight spaceship (LWSS)</td>
+	</tr>
+	<tr>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/glider.gif" alt=""></td>
+		<td style="text-align:center"><img src="/img/in-post/game-of-life/lightweight_spaceship.gif" alt=""></td>
+	</tr>
+</table>
 
 ## Numpy 数组
 ---
