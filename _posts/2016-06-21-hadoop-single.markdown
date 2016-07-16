@@ -5,6 +5,7 @@ subtitle:   "单机／伪分布式配置"
 date:       2016-06-21 03:00:00
 author:     "Haojun"
 header-img: "img/in-post/hadoop-single/header.jpg"
+catalog:    true
 tags:
     - Apache
     - Hadoop
