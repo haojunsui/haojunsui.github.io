@@ -5,6 +5,7 @@ subtitle:   "Conway\'s Game of Life using Numpy"
 date:       2016-06-21 05:00:00
 author:     "Haojun"
 header-img: "img/in-post/game-of-life/header.jpg"
+catalog:    true
 tags:
     - Python
     - Game of Life

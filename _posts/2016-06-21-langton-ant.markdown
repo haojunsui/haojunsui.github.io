@@ -5,6 +5,7 @@ subtitle:   "Langton\'s Ant using Python"
 date:       2016-06-21 09:00:00
 author:     "Haojun"
 header-img: "img/in-post/langton-ant/header.jpg"
+catalog:    true
 tags:
     - Python
     - Langton's Ant
