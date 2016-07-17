@@ -8,7 +8,7 @@ header-img: "img/in-post/game-of-life/header.jpg"
 tags:
     - Python
     - Game of Life
-    - Numpy
+    - NumPy
     - Automata
     - Tutorial
 ---

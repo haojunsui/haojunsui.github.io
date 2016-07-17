@@ -1,0 +1,54 @@
+---
+layout:     post
+title:      "利用 SciPy 实现层次聚类"
+subtitle:   "SciPy Hierarchical Clustering Tutorial"
+date:       2016-07-16 05:00:00
+author:     "Haojun"
+header-img: "img/in-post/scipy-hac/header.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - Python
+    - SciPy
+    - NumPy
+    - Hierarchical Clustering
+    - Tutorial
+---
+
+层次聚类算法的主要优点在于我们无需事先知道最终所需集群数量。很遗憾的是，网上并没有很详细的教程讲述如何使用 SciPy 的层次聚类包进行层次聚类并取得最终集群的信息。
+
+## 命名规则
+---
+在我们开始之前，我们先设定一下命名规则来帮助理解本篇教程：
+
+* X - 实验样本（n 乘 m 的数组）
+* n - 样本数量
+* m - 样本特征数量
+* Z - 集群关系数组（包含层次聚类信息）
+* k - 集群数量
+
+## 导入所需模块及环境搭配
+---
+```python
+from matplotlib import pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage
+import numpy as np
+
+%matplotlib inline
+np.set_printoptions(precision=5, suppress=True)
+```
+
+## 生成实验样本
+---
+如果你已经有自己的实验样本了，那么你可以选择跳过此步骤。但是要注意的是，你必须确保你的实验样本是一个 NumPy 矩阵 X，包含 n 个实验样本以及 m 个样本特征，即 `X.shape == (n, m)`.
+
+```python
+# 生成两个集群: 集群 a 有100个数据点, 集群 b 有50个数据点:
+np.random.seed(1029)
+a = np.random.multivariate_normal([10, 0], [[3, 1], [1, 4]], size=[100,])
+b = np.random.multivariate_normal([0, 20], [[3, 1], [1, 4]], size=[50,])
+X = np.concatenate((a, b),)
+print X.shape  # 150个实验样本， 2个样本特征
+plt.scatter(X[:,0], X[:,1])
+plt.show()
+```
