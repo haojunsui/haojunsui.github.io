@@ -16,13 +16,14 @@ header-img: "img/projects-bg.jpg"
 		frameborder="0" scrolling="0" width="120px" height="20px"></iframe>
 		<p style="font-size:80%;"> A traffic system builder and simulator, which allows a user to create and manipulate a traffic system.</p>
 	</div>
-	
+
 	<div class="col-md-3">
 		<h3 style="font-size:130%;"><a href="https://github.com/haojunsui/witness-syntax" >witness-syntax</a></h3>
 		<iframe src="https://ghbtns.com/github-btn.html?user=haojunsui&repo=witness-syntax&type=star&count=true&v=2"
 		frameborder="0" scrolling="0" width="120px" height="20px"></iframe>
 		<iframe src="https://ghbtns.com/github-btn.html?user=haojunsui&repo=witness-syntax&type=fork&count=true&v=2"
 		frameborder="0" scrolling="0" width="120px" height="20px"></iframe>
+		[![apm](https://img.shields.io/apm/dm/witness-syntax.svg?maxAge=2592000)](https://atom.io/themes/witness-syntax)
 		<p style="font-size:80%;"> An Atom syntax theme inspired by The Witness <a href="https://atom.io/themes/witness-syntax">https://atom.io/themes/witness-syntax</a></p>
 	</div>
 </div>
