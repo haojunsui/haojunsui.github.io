@@ -62,7 +62,7 @@ duoshuo_share: true                     # set to false if you want to use Commen
 # Baidu Analytics
 # ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
 # Google Analytics
-ga_track_id: 'UA-40219543-2'            # Format: UA-xxxxxx-xx
+ga_track_id: 'UA-81403004-1'            # Format: UA-xxxxxx-xx
 ga_domain: haojunsui.github.io
 
 
