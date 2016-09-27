@@ -32,6 +32,17 @@ $$Out(i,j,k)=\frac{In(i,j,k)}{255.0}-0.5$$
 
 For example, let’s say we were given an image pixel with the following values, (R, G, B) = (10, 128, 20). Let us apply this image normalization technique to see what we get. So we will have (10, 128, 20)/255.0 − 0.5, which gives us (−0.4608,0.0020,−0.4216) as our normalized values. As we can see all the values are are between -0.5 and 0.5. Also, notice that the G value was 128 which is nearly half of 255 and as a result we get a value very close to zero after normalization. We can now used this normalized value in the rest of our convolutional neural network. Normalization of data is a necessary and useful technique in most machine learning applications. In MATLAB, this step can be easily implemented and follows exactly from the transformation we have just described. We will just take in the input array and divide by 255 and subtract by 0.5.
 
+```matlab
+% Input:       A color image array of size N * M * 3
+% Output:      An array of the same size
+% Description: Approximately scales each color channel’s
+%              pixel values into the output range -0.5 to 0.5.
+
+function out = normalize(in)
+    out = in./255.0 - 0.5;
+end
+```
+
 #### Rectified Linear Unit
 We use rectified linear units (ReLUs) to threshold the input. These are usually the next layer after convolutions in convolutional neural networks.  We define ReLUs the following way:
 
@@ -65,6 +76,17 @@ There are many other types of activation functions such as sigmoid, tanh, and ma
 
 $$Out(i,j,k)=max(In(i,j,k),In(i,j,k) \times 0.01)$$
 
+```matlab
+% Input:       An array of size N * M * D
+% Output:      An array of the same size
+% Description: A thresholding operation where any negative
+%              numbers in the input become 0 in the output.
+
+function out = relu(in)
+	out = max(in, 0);
+end
+```
+
 #### Maxpool
 
 The maxpool operation is used to down-sample the images. This takes in an input of size 2N×2M×D and turns it into of size N×M×D. So it will take in an input of and reduce the number of rows and columns by 2 but we will not change the depth of the input. The maxpool operation is beneficial because it allows us to not overfit to our data and it also allows us to compute a lot less. This is very beneficial to use because training deep networks takes a lot of time and if we have less parameters it will be faster to convergence. We define the maxpool operation as follows:
@@ -95,6 +117,20 @@ $$
 
 There are other pooling operations such as average pooling. This can also be computed in a similar way but instead of taking the maximum value of each grid, we take the average. This should still result in a matrix of half the size but will contain different values.
 
+```matlab
+% Input:       An array of size 2N * 2M * D
+% Output:      An array of the size N * M * D
+% Description: Operates on each channel separately, and assigns
+%              output channel values by taking the maximum value
+%              in each nonoverlapping 2 * 2 block of the input channel.
+
+function out = maxpool(in)
+	a = max(in(1:2:end,1:2:end,:),in(2:2:end,1:2:end,:));
+	b = max(in(1:2:end,2:2:end,:),in(2:2:end,2:2:end,:));
+	out = max(a,b);
+end
+```
+
 #### Convolution
 
 The convolution layer convolves a set of filters, specified in “CNNparameter.mat”, over its input. A high filter response indicates similarity between the filter and the input image. Filter responses obtained in the convolution layers of a CNN enable it to make a decision about the class of the input image. It does linear transformation from input to output without changing the spatial size of the input image, but changing the number of channels in the output image. The convolution applies a predefined linear filters and bias values to input image to compute each channel. We defined the convolution operation as follow:
@@ -103,6 +139,25 @@ $$Out(:,:,l)=\sum\limits_{k=1}^{D_1}F_l(:,:,k) \times In(:,:,k)+b_l$$
 
 We use convolution to modify the spatial frequency characteristics of an image. We create 32 × 32 empty matrix for each channel and sum the convolved value within each input channel and add the bias value by the end to computer each output channel for the image. The convolution layer was implemented in MATLAB based on the above equation using two nested for-loops. The MATLAB function “imfilter” performs convolution on the input image.
 
+```matlab
+% Input:       An array of size N * M * D1
+% Output:      An array of size N * M * D2
+% Description: Apply a set of predefined linear filters and
+%              bias values to the input image to compute each
+%              channel of the output image.
+
+function out = convolve(in,filterbanks,biasvectors)
+	out = zeros(size(in,1),size(in,2),size(filterbanks,4));
+	for l = 1:size(filterbanks,4);   % do D2 times
+		sum = double(zeros(size(in,1),size(in,2)));
+		for k = 1:size(in,3);
+			sum = sum+double(imfilter(in(:,:,k),filterbanks(:,:,k,l),'conv'));
+		end
+		out(:,:,l) = sum+biasvectors(l);
+	end
+end
+```
+
 #### FullConnect
 
 We use fullconnect after we finish all of the convolution and ReLU computations and reduction of image sizes. Fullconnect function is applied to distill all the results down to 10 numbers, one for each class. The fullconnect operation generally does dot products to multiply all of the values in each input image layer, sum up the results, and add the bias value for each filter Fl and bl. We accomplish this goal by the following way:
@@ -110,6 +165,28 @@ We use fullconnect after we finish all of the convolution and ReLU computations 
 $$Out(1,1,l)=\sum\limits_{i=1}^N\sum\limits_{j=1}^M\sum\limits_{k=1}^{D_1}F_l(i,j,k)*In(i,j,k)+b_l$$
 
 In another word, we convert the input image to 1D vector. As a result, the output is an array of size of 1×1×D. We can then apply the 10 numbers to softmax to convert to probability. The fullconnect layer was implemented in MATLAB based on the above equation using three nested for-loops to compute the lth channel of the output image as the scalar value.
+
+```matlab
+% Input:       An array of size N * M * D1
+% Output:      An array of size 1 * 1 * D2
+% Description: Apply a filter bank of D2 linear filters
+%              and D2 scalar bias values to compute output values.
+
+function out = fullconnect(in,filterbanks,biasvectors)
+	out = zeros(1,1,size(filterbanks,4));
+	for l = 1:size(filterbanks,4);
+		sum = 0;
+		for i = 1:size(in,1);
+			for j = 1:size(in,2);
+				for k = 1:size(in,3);
+					sum = sum+filterbanks(i,j,k,l)*in(i,j,k);
+				end
+			end
+		end
+		out(:,:,l) = sum+biasvectors(l);
+	end
+end
+```
 
 #### Softmax
 
@@ -122,6 +199,21 @@ where a is defined as:
 $$a=max(In(1,1,k))$$
 
 We use the a term to reduce the exponential work we need to compute each time. This will give us the same result and with just less computation needed. The output of this softmax classifier is an array of probabilities for each class. The highest probability in this array is the class you predict. The array should also sum up to 1 and all values should be between 0 and 1. In MATLAB we would compute the a value first using the max function and after that we can follow our mathematical definition.
+
+```matlab
+% Input:       An array of size 1 * 1 * D
+% Output:      An array of the same size
+% Description: Take a vector of arbitrary real numbers and
+%              converts them into numbers that can be viewed
+%              as probabilities, that is, all will lie between
+%              0 and 1 and sum up to 1.
+
+function out = softmax(in)
+	a = max(in(1,1,:));
+	s = sum(exp(in(1,1,:)-a));
+	out = exp(in(1,1,:)-a)/s;
+end
+```
 
 ## Procedural Approach
 ---
