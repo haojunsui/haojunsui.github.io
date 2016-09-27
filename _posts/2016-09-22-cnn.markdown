@@ -42,7 +42,7 @@ A=
 \begin{bmatrix}
 	0.4 & 0.3 & -0.1\\
 	0 & 0.1 & -0.2\\
-	-0.3 & -0.4 & 0.2\\
+	-0.3 & -0.4 & 0.2
 \end{bmatrix}
 $$
 
@@ -53,7 +53,7 @@ ReLU(A)=
 \begin{bmatrix}
 	0.4 & 0.3 & 0\\
 	0 & 0.1 & 0\\
-	0 & 0 & 0.2\\
+	0 & 0 & 0.2
 \end{bmatrix}
 $$
 
@@ -71,27 +71,25 @@ $$Out(i,j,k)=max(\left\{In(r,c,k) \mid (2i-1)<r<2i\mbox{~and~}(2j-1)<c< 2j\right
 
 In MATLAB the implementation of this is easy. We can assume our image can be divided into multiple smaller grids. Then we simply compute the top left corner, top right corner, bottom left corner, and bottom right corner of each these grids. Then we can find the max of these values and we will have our down-sampled image. We will perform the maxpool operation on the following matrix A. The matrix is divided up into different color 2 by 2 grids.
 
-\begin{center}
-$A=$
-\begin{tabular}{|c|c|c|c|}
-	\hline
-	\cellcolor{red!25}3 & \cellcolor{red!25}5 & \cellcolor{green!25}6 & \cellcolor{green!25}7\\ \hline
-	\cellcolor{red!25}9 & \cellcolor{red!25}3 & \cellcolor{green!25}4 & \cellcolor{green!25}10\\ \hline
-	\cellcolor{blue!25}5 & \cellcolor{blue!25}8 & 7 & 2\\ \hline
-	\cellcolor{blue!25}1 & \cellcolor{blue!25}0 & 2 & 4\\ \hline
-\end{tabular}
-\end{center}
+$$
+A=
+\begin{bmatrix}
+	3 & 5 & 6 & 7\\
+	9 & 3 & 4 & 10\\
+	5 & 8 & 7 & 2\\
+	1 & 0 & 2 & 4
+\end{bmatrix}
+$$
 
 The maxpool operation on matrix A results in in the following matrix. We had to take the maximum value of each of these grids and then put them in their respective location. Now we have our down-sampled matrix which is half the size.
 
-\begin{center}
-\texttt{maxpool}$(A)=$
-\begin{tabular}{|c|c|c|c|}
-	\hline
-	\cellcolor{red!25}9 & \cellcolor{green!25}10\\ \hline
-	\cellcolor{blue!25}8 & 7\\ \hline
-\end{tabular}
-\end{center}
+$$
+maxpool(A)=
+\begin{bmatrix}
+	9 & 10\\
+	8 & 7
+\end{bmatrix}
+$$
 
 There are other pooling operations such as average pooling. This can also be computed in a similar way but instead of taking the maximum value of each grid, we take the average. This should still result in a matrix of half the size but will contain different values.
 
@@ -122,3 +120,92 @@ where a is defined as:
 $$a=max(In(1,1,k))$$
 
 We use the a term to reduce the exponential work we need to compute each time. This will give us the same result and with just less computation needed. The output of this softmax classifier is an array of probabilities for each class. The highest probability in this array is the class you predict. The array should also sum up to 1 and all values should be between 0 and 1. In MATLAB we would compute the a value first using the max function and after that we can follow our mathematical definition.
+
+## Procedural Approach
+
+Our 18-layer convolutional neural network takes a 32 × 32 × 3 uint8 RGB color image as input and produces 10 object class probabilities as out- put. The 18-layers can be split into 6 layer types - image normalization, convolution, ReLU, maxpool, fullconnect, and softmax - all of which are described in more detail above. During image normalization, each pixel in the images is normalized to the range from -0.5 to 0.5. During convolution, an input image is convolved with a set of predefined filters, taken from “CNNparameters.mat”. A high response to a filter indicates similarity be- tween the input image and a filter, which in turn indicates the likelihood of a specific object being present. Maxpool and ReLU both extract relevant data from an input image, by pooling over an image or rectifying it respectively. Similarly to the convolution layer, the fullconnect layer applies a filter bank to the input image, turning the input image (a three dimensional matrix) into a vector that can be used for class prediction. To perform class prediction, a sigmoid function, in our case softmax function, produces a class probability for each of the ten training classes.
+
+![](/img/in-post/cnn/layer_flow.png)
+
+At several steps in the CNN, image size is reduced, discarding unneces- sary image information and retaining information relevant to classification, until the final output, which is a 1 × 1 × 10 class probability vector. Each value in the final output vector can have a value from 0 to 1, indicating the softmax probability that an image has one of ten classes. The ten classes tested by our CNN, in order, are: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, and truck. Finally, taking the output probability from the CNN, an image can be classified. The vector index with maximum probabil- ity represents the corresponding class of an image.
+
+The 18-layer CNN was implemented using MATLAB. Each layer was im- plemented using a separate function, as described in the “Layer Types & De- scription” section. Layer order is shown in the Figure 1, which indicates the flow of control and subroutine structure in the MATLAB code. To improve the generality of our approach, layer order is not hard-coded in MATLAB, allowing for a larger convolutional neural network, with more layers, to be implemented in the case of a larger input image with more filter banks. A general outline of our procedural approach, as shown in Figure 1, is:
+
+1. Load input image
+2. Normalize the input image to be in the range from -0.5 to 0.5
+3. Perform the following operations (5 layers) on the input image in order:
+	1. Convolve
+	2. ReLU
+	3. Convolve
+	4. ReLU
+	5. Maxpool
+4. If the image is not of size 4×4×D (where D corresponds to filter bank
+size) repeat step 3, otherwise continue to step 5
+5. Fullconnect layer which transforms input image into a vector
+6. Softmax layer which turns input vector into a class probability vector
+7. Output class probability vector
+
+See “CNN.m” for the complete CNN. The output is a class probability vector. The user must process the probability vector to classify an image, with the maximum probability index of the output vector indicating the most likely image class. We suggest that an image be classified according to the rules proposed in the “Possible Method for Unknown Category” section.
+
+## Experimental Observations
+
+This section displays program behavior, displayed using the debugging file “CNN Execute.m”. After the program has finished classifying the input image shown in Figure 1, we display the saved outputs from several layers and observe each layer type to ensure correct function. Based on timing data, we also determine that the convolve layer takes longer time than other layers.
+
+Figure 2 - 8 demonstrate our program does what we think it does. Normalize scales pixel values between -0.5 and 0.5 for each color channel. Subsequently, the contrast between pixels becomes smaller, as shown in Figure 2. As shown
+in Figure 3, the convolution layer identifies important features of an im- age, convolving ten separate pre-defined filters over the normalized image in Figure 2. ReLU rectifies an input image by removing negative values, setting them to zero. As shown in Figure 4 and Figure 5, identifiable features be- come more recognizable while irrelevant features are removed. The maxpool function, as shown in Figure 6, pools over an image, extracting the maximum response from an input image (Figure 5) and effectively down-sampling the image to a smaller output resolution.
+
+Interestingly, the output vector from the fullconnect layer, shown in Figure 7, is scaled such that higher vector values result in a higher class probability after performing softmax. In Figure 8, softmax normalizes the probabilities to a range from 0 to 1.
+
+We extract important image information by using conv-ReLU pairs. By comparing two ReLU layers within each training cycle, i.e., layer 3 (Figure 3) and layer 5 (Figure 4), the feature point (the airplane) in layer 5 is more outstanding than in layer 3. Maxpool reduces the size of an input image, extracting the maximum (significant) responses from the previous layer. This process must repeat several times (3 times for this project) to extract relevant image information so that the input image can be correctly classified.
+
+![](/img/in-post/cnn/Layer1_Normalize.png)
+
+![](/img/in-post/cnn/Layer2_Convolve.png)
+
+![](/img/in-post/cnn/Layer3_ReLU.png)
+
+![](/img/in-post/cnn/Layer5_ReLU.png)
+
+![](/img/in-post/cnn/Layer6_Maxpool.png)
+
+![](/img/in-post/cnn/Layer17_Fullconnect.png)
+
+![](/img/in-post/cnn/Layer18_Softmax.png)
+
+## Results and Accuracy
+
+This section displays accuracy results for the convolutional neural net- work constructed during this project. Neural network accuracy, while not good enough to confidently identify “most” the pictures in the CIFAR-10 dataset, proved that image classification using a CNN is possible. The re- sults are promising, in that with a more properly trained network, more layers, or larger input images, a convolution neural network, constructed us- ing the six layers types prescribed by this project, has the capability of being an effective tool for image classification.
+
+Table 1 displays the confusion matrix for the convolutional neural net- work, constructed using pre-labelled input images from CIFAR-10 dataset. Using 10,000 test images, each row corresponds to the ground truth image classes, specified by the CIFAR-10 dataset file. The columns indicate the number of times an image, with known groundtruth, was classified as certain class. The cells along the diagonal, grayed out in Table 1, represent im- ages which were correctly classified to be the same class as their pre-labelled groundtruth class. Using the correctly classified images, it is possible to de- termine the classification accuracy, first of the convolutional neural network as a whole, and then for each individual class.
+
+$$Accuracy=\frac{\sum_iA_{ii}}{\sum_i\sum_jA_{ij}}=0.4371$$
+
+![](/img/in-post/cnn/confusion.png)
+
+Using the accuracy equation shown above, summing all of the correctly labelled images and then dividing by the total number of images in the test set (10,000), the classification accuracy of the neural network is shown to be 0.4371 across all classes. While better than chance, which would be assumed to accurately “guess” the correct class with an accuracy of 0.1, the neural network exhibits relatively poor performance, misclassifying an image more often than correctly classifying an image. Using a similar equation:
+
+$$\mbox{\textit{Class Accuracy}}=\frac{A_{ii}}{\sum_jA_{ij}}$$
+
+![](/img/in-post/cnn/TopK_Classification.png)
+
+The convolutional neural network accuracy for each class, computed by dividing the number of correctly classified images for a class by the total number of images with that class label, is displayed in the last of column of Table 1. Interestingly, CNN classification on images containing animals (bird, cat, deer, dog) performed significantly worse than classification on im- ages containing machines (ship, truck, automobile, airplane), with frogs and horses being exceptions. However, frogs and horses, the two exceptions, were classified more consistently than other class types, with frog classification performing the best of all class types.
+
+Figure 9 displays a top-K classification plot, using the 10,000 CIFAR-10 input images. As specified in the project description, a top-K classification plot shows how often the correct image class occurs in the top-K classes of the CNN output. In other words, for each integer value k on the x- axis, y(k) equals the percentage of times the correct class was one of the top-K ranked classes, determined by sorting the probability scores from the CNN from highest to lowest. Subsequently, percentage must increases as k increases because a correct class occurrence at the k probability rank will also be contained by the (k + n) probability rank, where n is a positive integer. Subsequently, percentage occurrence at k = 10, when the correct class is one of the ten possible CNN class outputs, must be 1, as shown in Figure 9, because ten is the lowest possible rank for any class. At k = 1, correct class occurrence percentage is 0.4371, which is the same as the overall classification accuracy of the CNN found using the confusion matrix. The curve climbs quickly, clearing 0.9 at k = 5, with a correct class occurrence percentage of 0.9135. While the CNN displayed somewhat poor performance overall, correctly classifying less than half of of the test images, the results of the top-K classification plot are more promising, with the correct image class being one of the top five output classes, by probability rank, 91.35 percent of the time. Compared to chance performance, which would be expected to contain the correct class only 50 percent of the time, Figure 9 shows that the CNN is able to determine class information about an image.
+
+## Possible Method for Unknown Category
+
+Figure 10 and Figure 11 are histograms, created for the purpose of determining how maximum probability, the highest probability score from the softmax layer, is related to classification accuracy. Figure 10 shows a his- togram of maximum probability output for all test images. The distribu- tion is nearly normal, skewed slightly toward higher maximum probabilities. Three bins, spanning the range [0.296, 0.428], account for nearly one third of the entire dataset, containing more than 1000 images each, and indicating that the maximum probability output of the CNN most often fell within that range.
+
+![](/img/in-post/cnn/max_count.png)
+
+![](/img/in-post/cnn/max_accuracy.png)
+
+Figure 11 uses the same bins as Figure 10 to group images by maximum probability output, and shows the classification accuracy of the CNN at those maximum probabilities. As shown in Figure 11, classification accuracy, ob- tained by dividing the number of correctly classified images in a bin by the total number of images in a bin, tracks closely with the maximum probabil- ity output from softmax, with accuracy increasing as maximum probability increases. For the bin spanning the range [0.472, 0.516], classification accu- racy is 0.517, meaning that, with a maximum probability greater than 0.5, the CNN is able to correctly predict an image’s class more than half of the time. This is an important threshold because it indicates that the CNN is more likely to correctly classify an image than misclassify an image. Sub- sequently, an “unknown” category can be implemented via thresholding. In order to extend classification to include an “unknown” category, if the max- imum probability is below 0.5, it should be labelled as “unknown”, because it is more likely that the CNN does not know the correct image class than that the image has been correctly classified.
+
+Depending on the specific classification application, this thresholding method may or may not be advisable. If misclassification is costly, then adding an “unknown” category, when maximum probability is below 0.5, may be ideal. However, when the maximum probability output is below 0.5, the CNN still performs better than random chance classification, which would be expected to correctly classify an image one tenth of the time using ten classes. Subsequently, the CNN can provide information about an image, even with a low maximum probability output, but it is prone to misclassifi- cation.
+
+## Results on External Images
+
+We decided to try out our classifier on ten external images to see the performance on something from a new dataset. The convolutional neural network correctly guessed six out of ten of these images. It failed to accu- rately predict airplane, bird, dog, and frog. Although it failed to classify these images it had always predicted the correct class as the second highest guess. Another interesting result we saw here was that when it misclassified a result it still chose categories similar to it as the result. For example, when airplane was misclassified it was said to be a ship, which is another object that is usually big and white. Below are our full results on this test.
+
+![](/img/in-post/cnn/external_result.png)
