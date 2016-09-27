@@ -31,5 +31,40 @@ $$Out(i,j,k)=\frac{In(i,j,k)}{255.0}-0.5$$
 For example, let’s say we were given an image pixel with the following values, (R, G, B) = (10, 128, 20). Let us apply this image normalization technique to see what we get. So we will have (10, 128, 20)/255.0 − 0.5, which gives us (−0.4608,0.0020,−0.4216) as our normalized values. As we can see all the values are are between -0.5 and 0.5. Also, notice that the G value was 128 which is nearly half of 255 and as a result we get a value very close to zero after normalization. We can now used this normalized value in the rest of our convolutional neural network. Normalization of data is a necessary and useful technique in most machine learning applications. In MATLAB, this step can be easily implemented and follows exactly from the transformation we have just described. We will just take in the input array and divide by 255 and subtract by 0.5.
 
 #### Rectified Linear Unit
-We use rectified linear units (\texttt{ReLU}s) to threshold the input. These are usually the next layer after convolutions in convolutional neural networks.  We define \texttt{ReLU}s the following way:$$Out(i,j,k)=max(In(i,j,k),0)$$
-\par So for any input we are given, we will make sure the output always has values 0 or greater. We will demonstrate this technique by showing you an example on a matrix. We have our original matrix, $A$, defined as follows:
+We use rectified linear units (ReLUs) to threshold the input. These are usually the next layer after convolutions in convolutional neural networks.  We define ReLUs the following way:
+
+$$Out(i,j,k)=max(In(i,j,k),0)$$
+
+So for any input we are given, we will make sure the output always has values 0 or greater. We will demonstrate this technique by showing you an example on a matrix. We have our original matrix, A, defined as follows:
+
+$$
+\begin{center}
+$A=$
+\begin{tabular}{|c|c|c|}
+	\hline
+	0.4 & 0.3 & -0.1\\ \hline
+	0 & 0.1 & -0.2\\ \hline
+	-0.3 & -0.4 & 0.2\\ \hline
+\end{tabular}
+\end{center}
+$$
+
+After we apply ReLU(A), we have the result below. The highlighted cells show where the actual thresholding has occurred. All of the negative values in our original matrix have now been set to 0 and everything else has been left alone.
+
+$$
+\begin{center}
+\texttt{ReLU}$(A)=$
+\begin{tabular}{|c|c|c|}
+	\hline
+	0.4 & 0.3 & \cellcolor{blue!25}0\\ \hline
+	0 & 0.1 & \cellcolor{blue!25}0\\ \hline
+	\cellcolor{blue!25}0 & \cellcolor{blue!25}0 & 0.2\\ \hline
+\end{tabular}
+\end{center}
+$$
+
+In MATLAB, this can be implemented in one line using the max function of the input array and 0. You can see from this that MATLAB allows us to easily implement many of these functions in the way they are mathematically defined.
+
+There are many other types of activation functions such as sigmoid, tanh, and maxout. ReLUs have been adopted recently, since they are easy to com- pute and they lead to faster convergence. In other activation functions, we are forced to compute exponential values which are a lot more computation- ally heavy than performing a max function. One problem with ReLUs has been the fact that neurons can stop activating with ReLUs. Once a neuron is not activating it is basically a useless neuron in the network. Leaky ReLUs have been used to combat this and are defined as follows:
+
+$$Out(i,j,k)=max(In(i,j,k),In(i,j,k) \times 0.01)$$
