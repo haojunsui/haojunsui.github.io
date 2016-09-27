@@ -38,33 +38,29 @@ $$Out(i,j,k)=max(In(i,j,k),0)$$
 So for any input we are given, we will make sure the output always has values 0 or greater. We will demonstrate this technique by showing you an example on a matrix. We have our original matrix, A, defined as follows:
 
 $$
-\begin{center}
-$A=$
-\begin{tabular}{|c|c|c|}
+A=
+\begin{bmatrix}
 	\hline
-	0.4 & 0.3 & -0.1\\ \hline
-	0 & 0.1 & -0.2\\ \hline
-	-0.3 & -0.4 & 0.2\\ \hline
-\end{tabular}
-\end{center}
+	0.4 & 0.3 & -0.1\\
+	0 & 0.1 & -0.2\\
+	-0.3 & -0.4 & 0.2\\
+\end{bmatrix}
 $$
 
 After we apply ReLU(A), we have the result below. The highlighted cells show where the actual thresholding has occurred. All of the negative values in our original matrix have now been set to 0 and everything else has been left alone.
 
 $$
-\begin{center}
-\texttt{ReLU}$(A)=$
-\begin{tabular}{|c|c|c|}
+ReLU(A)=
+\begin{bmatrix}
 	\hline
-	0.4 & 0.3 & \cellcolor{blue!25}0\\ \hline
-	0 & 0.1 & \cellcolor{blue!25}0\\ \hline
-	\cellcolor{blue!25}0 & \cellcolor{blue!25}0 & 0.2\\ \hline
-\end{tabular}
-\end{center}
+	0.4 & 0.3 & 0\\
+	0 & 0.1 & 0\\
+	0 & 0 & 0.2\\
+\end{bmatrix}
 $$
 
 In MATLAB, this can be implemented in one line using the max function of the input array and 0. You can see from this that MATLAB allows us to easily implement many of these functions in the way they are mathematically defined.
 
-There are many other types of activation functions such as sigmoid, tanh, and maxout. ReLUs have been adopted recently, since they are easy to com- pute and they lead to faster convergence. In other activation functions, we are forced to compute exponential values which are a lot more computation- ally heavy than performing a max function. One problem with ReLUs has been the fact that neurons can stop activating with ReLUs. Once a neuron is not activating it is basically a useless neuron in the network. Leaky ReLUs have been used to combat this and are defined as follows:
+There are many other types of activation functions such as sigmoid, tanh, and maxout. ReLUs have been adopted recently, since they are easy to compute and they lead to faster convergence. In other activation functions, we are forced to compute exponential values which are a lot more computation- ally heavy than performing a max function. One problem with ReLUs has been the fact that neurons can stop activating with ReLUs. Once a neuron is not activating it is basically a useless neuron in the network. Leaky ReLUs have been used to combat this and are defined as follows:
 
 $$Out(i,j,k)=max(In(i,j,k),In(i,j,k) \times 0.01)$$
