@@ -69,7 +69,7 @@ $$Out(i,j,k)=max(In(i,j,k),In(i,j,k) \times 0.01)$$
 
 The maxpool operation is used to down-sample the images. This takes in an input of size 2N×2M×D and turns it into of size N×M×D. So it will take in an input of and reduce the number of rows and columns by 2 but we will not change the depth of the input. The maxpool operation is beneficial because it allows us to not overfit to our data and it also allows us to compute a lot less. This is very beneficial to use because training deep networks takes a lot of time and if we have less parameters it will be faster to convergence. We define the maxpool operation as follows:
 
-$$Out(i,j,k)=max(\left\{In(r,c,k) \mid (2i-1)<r<2i$$ and $$(2j-1)<c< 2j\right\})$$
+$$Out(i,j,k)=max(\left\{In(r,c,k) \mid (2i-1)<r<2i \mbox{ and } (2j-1)<c< 2j\right\})$$
 
 In MATLAB the implementation of this is easy. We can assume our image can be divided into multiple smaller grids. Then we simply compute the top left corner, top right corner, bottom left corner, and bottom right corner of each these grids. Then we can find the max of these values and we will have our down-sampled image. We will perform the maxpool operation on the following matrix A. The matrix is divided up into different color 2 by 2 grids.
 
