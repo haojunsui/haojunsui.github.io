@@ -40,7 +40,6 @@ So for any input we are given, we will make sure the output always has values 0 
 $$
 A=
 \begin{bmatrix}
-	\hline
 	0.4 & 0.3 & -0.1\\
 	0 & 0.1 & -0.2\\
 	-0.3 & -0.4 & 0.2\\
@@ -52,7 +51,6 @@ After we apply ReLU(A), we have the result below. The highlighted cells show whe
 $$
 ReLU(A)=
 \begin{bmatrix}
-	\hline
 	0.4 & 0.3 & 0\\
 	0 & 0.1 & 0\\
 	0 & 0 & 0.2\\
@@ -64,3 +62,63 @@ In MATLAB, this can be implemented in one line using the max function of the inp
 There are many other types of activation functions such as sigmoid, tanh, and maxout. ReLUs have been adopted recently, since they are easy to compute and they lead to faster convergence. In other activation functions, we are forced to compute exponential values which are a lot more computation- ally heavy than performing a max function. One problem with ReLUs has been the fact that neurons can stop activating with ReLUs. Once a neuron is not activating it is basically a useless neuron in the network. Leaky ReLUs have been used to combat this and are defined as follows:
 
 $$Out(i,j,k)=max(In(i,j,k),In(i,j,k) \times 0.01)$$
+
+#### Maxpool
+
+The maxpool operation is used to down-sample the images. This takes inaninputofsize2N×2M×DandturnsitintoofsizeN×M×D. So it will take in an input of and reduce the number of rows and columns by 2 but we will not change the depth of the input. The maxpool operation is beneficial because it allows us to not overfit to our data and it also allows us to compute a lot less. This is very beneficial to use because training deep networks takes a lot of time and if we have less parameters it will be faster to convergence. We define the maxpool operation as follows:
+
+$$Out(i,j,k)=max(\left\{In(r,c,k) \mid (2i-1)<r<2i\mbox{~and~}(2j-1)<c< 2j\right\})$$
+
+In MATLAB the implementation of this is easy. We can assume our image can be divided into multiple smaller grids. Then we simply compute the top left corner, top right corner, bottom left corner, and bottom right corner of each these grids. Then we can find the max of these values and we will have our down-sampled image. We will perform the maxpool operation on the following matrix A. The matrix is divided up into different color 2 by 2 grids.
+
+\begin{center}
+$A=$
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	\cellcolor{red!25}3 & \cellcolor{red!25}5 & \cellcolor{green!25}6 & \cellcolor{green!25}7\\ \hline
+	\cellcolor{red!25}9 & \cellcolor{red!25}3 & \cellcolor{green!25}4 & \cellcolor{green!25}10\\ \hline
+	\cellcolor{blue!25}5 & \cellcolor{blue!25}8 & 7 & 2\\ \hline
+	\cellcolor{blue!25}1 & \cellcolor{blue!25}0 & 2 & 4\\ \hline
+\end{tabular}
+\end{center}
+
+The maxpool operation on matrix A results in in the following matrix. We had to take the maximum value of each of these grids and then put them in their respective location. Now we have our down-sampled matrix which is half the size.
+
+\begin{center}
+\texttt{maxpool}$(A)=$
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	\cellcolor{red!25}9 & \cellcolor{green!25}10\\ \hline
+	\cellcolor{blue!25}8 & 7\\ \hline
+\end{tabular}
+\end{center}
+
+There are other pooling operations such as average pooling. This can also be computed in a similar way but instead of taking the maximum value of each grid, we take the average. This should still result in a matrix of half the size but will contain different values.
+
+#### Convolution
+
+The convolution layer convolves a set of filters, specified in “CNNparameter.mat”, over its input. A high filter response indicates similarity between the filter and the input image. Filter responses obtained in the convolution layers of a CNN enable it to make a decision about the class of the input image. It does linear transformation from input to output without changing the spatial size of the input image, but changing the number of channels in the output image. The convolution applies a predefined linear filters and bias values to input image to compute each channel. We defined the convolution operation as follow:
+
+$$Out(:,:,l)=\sum\limits_{k=1}^{D_1}F_l(:,:,k) \times In(:,:,k)+b_l$$
+
+We use convolution to modify the spatial frequency characteristics of an image. We create 32 × 32 empty matrix for each channel and sum the convolved value within each input channel and add the bias value by the end to computer each output channel for the image. The convolution layer was implemented in MATLAB based on the above equation using two nested for-loops. The MATLAB function “imfilter” performs convolution on the input image.
+
+#### FullConnect
+
+We use fullconnect after we finish all of the convolution and ReLU computations and reduction of image sizes. Fullconnect function is applied to distill all the results down to 10 numbers, one for each class. The fullconnect operation generally does dot products to multiply all of the values in each input image layer, sum up the results, and add the bias value for each filter Fl and bl. We accomplish this goal by the following way:
+
+$$Out(1,1,l)=\sum\limits_{i=1}^N\sum\limits_{j=1}^M\sum\limits_{k=1}^{D_1}F_l(i,j,k)*In(i,j,k)+b_l$$
+
+In another word, we convert the input image to 1D vector. As a result, the output is an array of size of 1×1×D. We can then apply the 10 numbers to softmax to convert to probability. The fullconnect layer was implemented in MATLAB based on the above equation using three nested for-loops to compute the lth channel of the output image as the scalar value.
+
+#### Softmax
+
+The end of a convolutional neural network is usually either a softmax classifier or a support vector machine. In our network, we were told to use a softmax classifier. The softmax classifier takes in an array of size 1 × 1 × D. We define the output the following way:
+
+$$Out(1,1,k)=\frac{exp(In(1,1,k)-a)}{\sum\limits_{k=1}^Dexp(In(1,1,k)-a)}$$
+
+where a is defined as:
+
+$$a=max(In(1,1,k))$$
+
+We use the a term to reduce the exponential work we need to compute each time. This will give us the same result and with just less computation needed. The output of this softmax classifier is an array of probabilities for each class. The highest probability in this array is the class you predict. The array should also sum up to 1 and all values should be between 0 and 1. In MATLAB we would compute the a value first using the max function and after that we can follow our mathematical definition.
