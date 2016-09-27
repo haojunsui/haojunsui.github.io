@@ -1,0 +1,29 @@
+---
+layout:     post
+title:      "Classifying Images using a Convolutional Neural Network"
+subtitle:   "Convolutional Neural Network"
+date:       2016-09-26 05:00:00
+author:     "Haojun"
+header-img: "img/in-post/cnn/header.jpg"
+catalog:    true
+tags:
+    - Computer Vision
+    - Convolutional Neural Network
+    - Matlab
+---
+
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+## Introduction
+
+#### Task Performed
+
+In this project we created a convolutional neural network and used it to classify the CIFAR-10 dataset. We created a convolutional neural network using eighteen layers, consisting of six layer types. The layer types were image normalization, convolution, rectified linear units, maxpool, fully connected, and softmax. In the following report, we describe each of these different layers types in detail. We also describe and show observations and results for the CNN, classifying the CIFAR-10 images using provided filters and bias values. Finally, we test our CNN on external images, found online, and present our findings. We hope to achieve a better understanding of convolutional neural networks and their implementation after completing this report. For this specific project, we wish to see that our network will have a good prediction rate accuracy.
+
+## Layer Types & Description
+
+#### Image Normalization
+
+The first step in our convolutional neural network is to normalize the input image we are given. Images are normally given as a set of RGB values. These values range from 0 to 255 for each RGB channel. We then want to normalize all of these values to a range from -0.5 to 0.5. To do this we simply can take the input image and apply the following transformation on it:
+
+$$s$$
