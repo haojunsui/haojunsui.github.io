@@ -3,16 +3,16 @@ layout:     post
 title:      "Classifying Images using a Convolutional Neural Network"
 subtitle:   "Convolutional Neural Network"
 date:       2016-09-26 05:00:00
-author:     "Haojun"
+author:     "Haojun, Undergraduate Research Scientist"
 header-img: "img/in-post/cnn/header.jpg"
 catalog:    true
 tags:
     - Computer Vision
     - Convolutional Neural Network
     - Matlab
+    - Image Classification
+    - Tutorial
 ---
-
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 ## Introduction
 
@@ -134,11 +134,11 @@ The 18-layer CNN was implemented using MATLAB. Each layer was im- plemented usin
 1. Load input image
 2. Normalize the input image to be in the range from -0.5 to 0.5
 3. Perform the following operations (5 layers) on the input image in order:
-	1. Convolve
-	2. ReLU
-	3. Convolve
-	4. ReLU
-	5. Maxpool
+	* Convolve
+	* ReLU
+	* Convolve
+	* ReLU
+	* Maxpool
 4. If the image is not of size 4×4×D (where D corresponds to filter bank
 size) repeat step 3, otherwise continue to step 5
 5. Fullconnect layer which transforms input image into a vector

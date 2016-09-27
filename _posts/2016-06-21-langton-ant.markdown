@@ -3,7 +3,7 @@ layout:     post
 title:      "兰顿蚂蚁（Langton's Ant）及其 Python 实现"
 subtitle:   "Langton\'s Ant using Python"
 date:       2016-06-21 09:00:00
-author:     "Haojun"
+author:     "Haojun, Undergraduate Research Scientist"
 header-img: "img/in-post/langton-ant/header.jpg"
 catalog:    true
 tags:
