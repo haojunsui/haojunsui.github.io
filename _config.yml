@@ -89,6 +89,9 @@ friends: [
         title: "The Penn State Institute for CyberScience",
         href: "http://ics.psu.edu"
     },{
+        title: "Microsoft",
+        href: "https://www.microsoft.com/en-us/"
+    },{
         title: "SSTL",
         href: "http://www.sstl.org.cn"
     },{
