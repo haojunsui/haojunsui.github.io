@@ -318,4 +318,4 @@ We decided to try out our classifier on ten external images to see the performan
 ---
 
 - <a href="http://cs231n.stanford.edu/syllabus.html">http://cs231n.stanford.edu/syllabus.html</a>
-- <a href="http://www.cs.toronto.edu/ ̃kriz/cifar.html">http://www.cs.toronto.edu/ ̃kriz/cifar.html</a>
+- <a href="http://www.cs.toronto.edu/~kriz/cifar.html">http://www.cs.toronto.edu/~kriz/cifar.html</a>
