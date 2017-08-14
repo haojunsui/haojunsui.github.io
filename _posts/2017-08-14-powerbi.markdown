@@ -4,8 +4,8 @@ title:      "在 PowerBI 中实现自定义 R Plotly 视觉对象"
 subtitle:   "Enabling Custom Visual in PowerBI using R Plotly"
 date:       2017-08-14 05:00:00
 author:     "Haojun, Software Engineer"
-header-img: "img/in-post/powerbi/header.jpg"
-header-mask: 0.3
+header-img: "img/in-post/powerbi/powerbi.png"
+header-mask: 0.5
 catalog:    true
 tags:
     - PowerBI
@@ -25,7 +25,23 @@ Power BI 是基于云的商业数据分析和共享工具，它能将复杂的�
 
 ## 什么是 R Plotly ?
 ---
-<div style="padding-top:62.5%">
-    <iframe style="display:block;width:100%;height:100%" frameborder="0" scrolling="no" src="//plot.ly/~shjnyr/0.embed"></iframe>
+<div class="container">
+    <iframe class="video" width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~shjnyr/4.embed"></iframe>
 </div>
+<style>
+.container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+
 R Plotly
