@@ -25,17 +25,17 @@ Power BI 是基于云的商业数据分析和共享工具，它能将复杂的�
 
 ## 什么是 R Plotly ?
 ---
-<div class="container">
-    <iframe class="video" width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~shjnyr/4.embed"></iframe>
+<div class="plotly">
+    <iframe class="plotly-inner" width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~shjnyr/4.embed"></iframe>
 </div>
 <style>
-.container {
+.plotly {
     position: relative;
     width: 100%;
     height: 0;
     padding-bottom: 56.25%;
 }
-.video {
+.plotly-inner {
     position: absolute;
     top: 0;
     left: 0;
