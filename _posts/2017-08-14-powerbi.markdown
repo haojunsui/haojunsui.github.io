@@ -4,8 +4,8 @@ title:      "在 PowerBI 中实现自定义 R Plotly 视觉对象"
 subtitle:   "Enabling Custom Visual in PowerBI using R Plotly"
 date:       2017-08-14 05:00:00
 author:     "Haojun, Software Engineer"
-header-img: "img/in-post/powerbi/powerbi.png"
-header-mask: 0.5
+header-img: "img/in-post/powerbi/header.jpg"
+header-mask: 0.3
 catalog:    true
 tags:
     - PowerBI
@@ -13,21 +13,9 @@ tags:
     - R
     - Data Visualization
     - Tutorial
+    - Microsoft
 ---
 
-## 什么是 PowerBI ?
----
-Power BI 是微软最新的商业智能 (BI) 概念，它包含了一系列的组件和工具。Power BI 的核心理念就是让用户不需要强大的技术背景，只需要掌握 Excel 这样简单的工具就能快速上手商业数据分析及可视化。
-
-![](../img/in-post/powerbi/powerbi.png)
-
-Power BI 是基于云的商业数据分析和共享工具，它能将复杂的数据转化成最简洁的视图。通过它，你可以快速创建丰富的可视化交互式报告，即使在外也能用手机端 App 随时查看。甚至检测公司各项业务的运行状况，只需它仪表板的一个界面就够了。一切，就是这么简单、快捷和灵活。
-
-## 什么是 R Plotly ?
----
-<div class="plotly">
-    <iframe class="plotly-inner" frameborder="0" scrolling="no" src="//plot.ly/~shjnyr/4.embed"></iframe>
-</div>
 <style>
 .plotly {
     position: relative;
@@ -44,12 +32,202 @@ Power BI 是基于云的商业数据分析和共享工具，它能将复杂的�
 }
 </style>
 
-R Plotly
+本教程由 隋昊君 (Haojun Sui) 撰写，未经许可，不得转载。
 
-greioghreioghroe
-g
-grieghrioeghiore
+## 前言
+---
 
-grieghoireghoirhgore
+#### 什么是 PowerBI ?
 
-greoigrheoigrheoghroieghoreigreogrheogrheoghreoghro
+Power BI 是微软最新的商业智能 (BI) 概念，它包含了一系列的组件和工具。Power BI 的核心理念就是让用户不需要强大的技术背景，只需要掌握 Excel 这样简单的工具就能快速上手商业数据分析及可视化。
+
+![](/img/in-post/powerbi/powerbi.png)
+
+Power BI 是基于云的商业数据分析和共享工具，它能将复杂的数据转化成最简洁的视图。通过它，你可以快速创建丰富的可视化交互式报告，即使在外也能用手机端 App 随时查看。甚至检测公司各项业务的运行状况，只需它仪表板的一个界面就够了。一切，就是这么简单、快捷和灵活。
+
+#### 什么是 Plotly ?
+
+Plotly 是一款在线分析和数据可视化分析工具，同时它还提供了各种应用程序接口 (API),包括 R，Python 还有 Matlab，使得这些程序可以调用 plotly。比起 infogr.am 或 amchart 等不同的工具，Plotly 更强调的是交流及资料的分享与串接；所以除了制作图表以外，还可看到 Plotly 为各种程式语言提供了函式库以及 Restful API，在图表的展示页面也提供了资料表还有其 JSON 格式 (主要用于供给 client 端函式库 plotly.js 绘图 )。
+
+即便先不谈资料社交的部份，Plotly 本身也是个相当强大的图表绘制工具。Plotly 也提供图表嵌入的功能，这个图表是使用 `iframe` 动态连结过来，所以本身也是互动的。
+
+<div class="plotly">
+    <iframe class="plotly-inner" frameborder="0" scrolling="no" src="//plot.ly/~shjnyr/8.embed"></iframe>
+</div>
+
+Plotly 可以产生的图表有不少种，包括基本的 Line Chart、Bar Chart、Scatter Chart、Area Chart、Heatmap、Bubble Chart 等等；同样的这些图表也都可以带入各种变化，比方说长条图分组呈现等等，设定可以在图表页签的 TRACE 选项中设定。事实上 Plotly 可以玩的变化相当的多样。
+
+## 正篇
+---
+
+#### 安装 NodeJS
+
+首先你需要下载并安装 NodeJS 4.0+ (推荐 5.0)。你可以从 <a href="https://nodejs.org">https://nodejs.org</a> 进行下载。安装结束后，你可以在命令提示符或 Windows PowerShell 中输入这行代码。
+
+```
+npm --version
+```
+
+![](/img/in-post/powerbi/npm_cmd.png)
+![](/img/in-post/powerbi/npm_ps.png)
+
+如果你得到的结果和上图类似，那么恭喜你，你已经成功安装好了 NodeJS。
+
+#### 安装 powerbi-visuals-tools
+
+在命令提示符或 Windows PowerShell 中输入这行代码。
+
+```
+npm install -g powerbi-visuals-tools
+```
+
+![](/img/in-post/powerbi/pbiviz_cmd.png)
+![](/img/in-post/powerbi/pbiviz_ps.png)
+
+>由于我在写这篇教程的时候已经事先安装过 powerbi-visuals-tools 了，可能和你在命令提示符或 Windows PowerShell 上得到的结果不一样。没关系，不要慌。
+
+我们可以在命令提示符或 Windows PowerShell 中运行下面这行代码来确认是否成功安装好了 powerbi-visuals-tools。
+
+```
+pbiviz
+```
+
+![](/img/in-post/powerbi/pbiviz_cmd2.png)
+![](/img/in-post/powerbi/pbiviz_ps2.png)
+
+如果你的屏幕像我的一样，也出现了这个 [哔--] (zhi) 炸 (zhang) 天的文字图标的话，恭喜你，你已经成功安装好了 powerbi-visuals-tools。
+
+#### 创建 rhtml 模板
+
+在命令提示符或 Windows PowerShell 中输入下面这行命令。这行命令会在你当前所在的目录中创建一个叫 `sampleRHTMLVisual` 的文件夹。
+
+```
+pbiviz new sampleRHTMLVisual -t rhtml
+```
+
+![](/img/in-post/powerbi/rhtml_cmd.png)
+![](/img/in-post/powerbi/rhtml_ps.png)
+
+>哇，我的命令行是彩色的耶！(#手动滑稽)
+
+可以看到，这行命令在 `sampleRHTMLVisual` 目录下创建了这些文件。
+
+![](/img/in-post/powerbi/file.png)
+
+这个目录下有一个 `script.R` 文件。PowerBI 就是用这个文件来运行你的 R 代码，并在报表中展示你的结果。
+
+```r
+# script.R
+
+source('./r_files/flatten_HTML.r')
+
+############### Library Declarations ###############
+libraryRequireInstall("ggplot2");
+libraryRequireInstall("plotly")
+####################################################
+
+################### Actual code ####################
+g = qplot(`Petal.Length`, data = iris, fill = `Species`, main = Sys.time());
+####################################################
+
+############# Create and save widget ###############
+p = ggplotly(g);
+internalSaveWidget(p, 'out.html');
+####################################################
+```
+
+通过这个文件我们不难看出，有两个 R 包，`ggplot2` 和 `plotly` 是必须事先安装好的。没有安装好这两个包的童鞋们继续往下看，安装好的童鞋们请手动点击<a href="#封装自定义视觉对象">这个链接</a>或者使劲往下翻。
+>如果你告诉我你还没有安装好 R，咳咳，那个啥，你是为啥要读这篇文章来着？
+
+#### 安装 ggplot2 和 plotly
+
+好的！让我们打开命令提示符或 Windows PowerShell，并输入下面这行命令。
+
+```
+R
+```
+
+![](/img/in-post/powerbi/R_cmd.png)
+![](/img/in-post/powerbi/R_ps.png)
+
+![](/img/in-post/powerbi/hehe.jpg)
+
+好的！让我们打开命令提示符或 Windows PowerShell，并输入下面这行命令。
+
+```
+r
+```
+
+![](/img/in-post/powerbi/lr_cmd.png)
+![](/img/in-post/powerbi/lr_ps.png)
+
+![](/img/in-post/powerbi/eryingzhang.jpg)
+
+![](/img/in-post/powerbi/hongzha.jpg)
+
+咳咳，刚刚小小的不专业了一点。但有的时候，止不住的想吐槽啊。
+
+![](/img/in-post/powerbi/kongji.jpg)
+
+好的，言归正传。我们打开 RGui，输入下面这两列命令。
+
+```r
+install.packages("ggplot2")
+install.packages("plotly")
+```
+
+![](/img/in-post/powerbi/rgui1.png)
+![](/img/in-post/powerbi/rgui2.png)
+
+如果你看到了类似的画面，那么恭喜你，你已经成功的安装好了所有所需的组件了。
+
+#### 封装自定义视觉对象
+
+打开命令提示符或 Windows PowerShell，进入 `sampleRHTMLVisual` 目录，运行下列命令。
+
+```
+pbiviz package
+```
+
+![](/img/in-post/powerbi/package.png)
+![](/img/in-post/powerbi/package.png)
+
+这行命令会在 ~~`sampleRHTMLVisual/dist`~~ `sampleRHTMLVisual\dist` 目录下创建一个叫 `sampleRHTMLVisual.pbiviz` 的文件。这个文件就是我们封装完毕的自定义视觉啦。
+
+#### 在 PowerBI 中引用自定义视觉
+
+打开 PowerBI，点击图中用红色圈出的按钮。
+
+![](/img/in-post/powerbi/bi.png)
+
+选取 ~~`sampleRHTMLVisual/dist/sampleRHTMLVisual.pbiviz`~~ `sampleRHTMLVisual\dist\ampleRHTMLVisual.pbiviz` 这个文件。如果你看了下图用红色圈出的按钮，那么你的自定义视觉就成功导入到 PowerBI 中啦。
+
+![](/img/in-post/powerbi/jieshu.jpg)
+
+这是什么情况啊！！！
+
+![](/img/in-post/powerbi/bi3.png)
+
+![](/img/in-post/powerbi/hei1.jpg)
+![](/img/in-post/powerbi/hei2.jpg)
+![](/img/in-post/powerbi/hei3.jpg)
+
+在我的不懈努力下，我发现，原来在没有选中数据的时候 PowerBI 是不运行的。
+
+![](/img/in-post/powerbi/bi4.png)
+
+你看是不是很空。那怎么办呢？嗯，随便搞几个数据进去就行了。
+
+![](/img/in-post/powerbi/zhihui.jpg)
+
+当我们把数据放进去之后，就是见证奇迹的时刻啦。
+
+![](/img/in-post/powerbi/qiji.jpg)
+
+![](/img/in-post/powerbi/bi5.png)
+
+本文到这里就结束了。怎么样是不是很简单？那为什么官方文档里不写呢？非要我们到网上来找教程？哎，不说了，我已经在 PowerBI 组门口了……
+
+![](/img/in-post/powerbi/39.jpg)
+
+<div style="text-align: right"> (本文写于微软总部某个小黑屋内) </div>
