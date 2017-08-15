@@ -189,8 +189,8 @@ install.packages("plotly")
 pbiviz package
 ```
 
-![](/img/in-post/powerbi/package.png)
-![](/img/in-post/powerbi/package.png)
+![](/img/in-post/powerbi/package_cmd.png)
+![](/img/in-post/powerbi/package_ps.png)
 
 这行命令会在 ~~`sampleRHTMLVisual/dist`~~ `sampleRHTMLVisual\dist` 目录下创建一个叫 `sampleRHTMLVisual.pbiviz` 的文件。这个文件就是我们封装完毕的自定义视觉啦。
 
