@@ -202,6 +202,8 @@ pbiviz package
 
 选取 ~~`sampleRHTMLVisual/dist/sampleRHTMLVisual.pbiviz`~~ `sampleRHTMLVisual\dist\ampleRHTMLVisual.pbiviz` 这个文件。如果你看了下图用红色圈出的按钮，那么你的自定义视觉就成功导入到 PowerBI 中啦。
 
+![](/img/in-post/powerbi/bi2.png)
+
 ![](/img/in-post/powerbi/jieshu.jpg)
 
 这是什么情况啊！！！
