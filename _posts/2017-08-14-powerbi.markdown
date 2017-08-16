@@ -1,14 +1,14 @@
 ---
 layout:     post
-title:      "在 PowerBI 中实现自定义 R Plotly 视觉对象"
-subtitle:   "Enabling Custom Visual in PowerBI using R Plotly"
+title:      "在 Power BI 中实现自定义 R Plotly 视觉对象"
+subtitle:   "Enabling Custom Visual in Power BI using R Plotly"
 date:       2017-08-14 05:00:00
 author:     "Haojun, Software Engineer"
 header-img: "img/in-post/powerbi/header.jpg"
 header-mask: 0.3
 catalog:    true
 tags:
-    - PowerBI
+    - Power BI
     - Plotly
     - R
     - Data Visualization
@@ -37,7 +37,7 @@ tags:
 ## 前言
 ---
 
-#### 什么是 PowerBI ?
+#### 什么是 Power BI ?
 
 Power BI 是微软最新的商业智能 (BI) 概念，它包含了一系列的组件和工具。Power BI 的核心理念就是让用户不需要强大的技术背景，只需要掌握 Excel 这样简单的工具就能快速上手商业数据分析及可视化。
 
@@ -114,7 +114,7 @@ pbiviz new sampleRHTMLVisual -t rhtml
 
 ![](/img/in-post/powerbi/file.png)
 
-这个目录下有一个 `script.R` 文件。PowerBI 就是用这个文件来运行你的 R 代码，并在报表中展示你的结果。
+这个目录下有一个 `script.R` 文件。Power BI 就是用这个文件来运行你的 R 代码，并在报表中展示你的结果。
 
 ```r
 # script.R
@@ -194,13 +194,13 @@ pbiviz package
 
 这行命令会在 ~~`sampleRHTMLVisual/dist`~~ `sampleRHTMLVisual\dist` 目录下创建一个叫 `sampleRHTMLVisual.pbiviz` 的文件。这个文件就是我们封装完毕的自定义视觉啦。
 
-#### 在 PowerBI 中引用自定义视觉
+#### 在 Power BI 中引用自定义视觉
 
-打开 PowerBI，点击图中用红色圈出的按钮。
+打开 Power BI，点击图中用红色圈出的按钮。
 
 ![](/img/in-post/powerbi/bi.png)
 
-选取 ~~`sampleRHTMLVisual/dist/sampleRHTMLVisual.pbiviz`~~ `sampleRHTMLVisual\dist\ampleRHTMLVisual.pbiviz` 这个文件。如果你看了下图用红色圈出的按钮，那么你的自定义视觉就成功导入到 PowerBI 中啦。
+选取 ~~`sampleRHTMLVisual/dist/sampleRHTMLVisual.pbiviz`~~ `sampleRHTMLVisual\dist\ampleRHTMLVisual.pbiviz` 这个文件。如果你看了下图用红色圈出的按钮，那么你的自定义视觉就成功导入到 Power BI 中啦。
 
 ![](/img/in-post/powerbi/bi2.png)
 
@@ -214,7 +214,7 @@ pbiviz package
 ![](/img/in-post/powerbi/hei2.jpg)
 ![](/img/in-post/powerbi/hei3.jpg)
 
-在我的不懈努力下，我发现，原来在没有选中数据的时候 PowerBI 是不运行的。
+在我的不懈努力下，我发现，原来在没有选中数据的时候 Power BI 是不运行的。
 
 ![](/img/in-post/powerbi/bi4.png)
 
@@ -228,7 +228,7 @@ pbiviz package
 
 ![](/img/in-post/powerbi/bi5.png)
 
-本文到这里就结束了。怎么样是不是很简单？那为什么官方文档里不写呢？非要我们到网上来找教程？哎，不说了，我已经在 PowerBI 组门口了……
+本文到这里就结束了。怎么样是不是很简单？那为什么官方文档里不写呢？非要我们到网上来找教程？哎，不说了，我已经在 Power BI 组门口了……
 
 ![](/img/in-post/powerbi/39.jpg)
 
